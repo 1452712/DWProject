@@ -91,7 +91,7 @@ public class Search {
 	
 	public Result searchByName(String MovieName) {
 		
-		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
 		
@@ -159,7 +159,7 @@ public class Search {
 
 	public Result searchByDirector(String DirectorName) {
 
-		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
 		
@@ -227,7 +227,7 @@ public class Search {
 	
 	public Result searchByActor(String ActorName) {	
 
-		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
 		
@@ -295,7 +295,7 @@ public class Search {
 	
 	public Result searchByCategory(String Category) {
 		
-		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
 		
@@ -363,7 +363,7 @@ public class Search {
 	
 	public Result searchByKeyword(String Attribute, String Value) {
 
-		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
 		
