@@ -33,13 +33,7 @@ public class Homepage extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Search search = new Search();
-		Result res = new Result(search.searchByTime(2001, 10, 0, 1));
-		
-		if(res != null) response.getWriter().append("success");
-		
-		
+
 	}
 
 	/**

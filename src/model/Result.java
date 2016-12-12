@@ -6,13 +6,13 @@ public class Result {
 	public long DBTime;
 	public long DWTime;
 	public int Count;
-	public ArrayList<String[]> MovieId;
+	public ArrayList<String> MovieId;
 	
-	public Result(long ResDBTime, long ResDWTime,int ResCount, ArrayList<String[]> ResMovieId) {		
-		MovieId = new ArrayList<String[]>(ResMovieId);	
-		DBTime = ResDBTime;
-		DWTime = ResDWTime;
-		Count = ResCount;
+	public Result(long ResDBTime, long ResDWTime,int ResCount, ArrayList<String> ResMovieId) {	
+		this.MovieId = new ArrayList<String>(ResMovieId);	
+		this.DBTime = ResDBTime;
+		this.DWTime = ResDWTime;
+		this.Count = ResCount;
 	}
 
 	public Result(Result res) {

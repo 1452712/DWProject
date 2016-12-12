@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import controller.String;
+
 public class Comment {
 
 public String name;
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
-	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452712?user=S_1452712&password=ItrHCVnJ";
+	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
 
 	public class SingleComment {
 		public String ReviewId;
@@ -20,12 +22,12 @@ public String name;
 		public String ProductId;
 		public int Helpfulness;
 		public double Score;
-		public long Time;
+		public String Time;
 		public String Summary;
 		public String Text;
 	}
 	
-	public SingleComment getCommentById(String Id) {
+	static public SingleComment getCommentById(String Id) {
 		
 		SingleComment res = new SingleComment();
 		
@@ -37,7 +39,7 @@ public String name;
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
 	                String sql = "SELECT ReviewId, UserId, ProductId, Helpfulness, Score, Time,"
-	                		+ "Summary, Text FROM Review WHERE ReviewId = " + Id;
+	                		+ "Summary, Text FROM review WHERE ReviewId = " + Id;
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                while(rs.next()) {
@@ -46,7 +48,7 @@ public String name;
 	                	res.ProductId = rs.getString("ProductId");
 	                	res.Helpfulness = rs.getInt("Helpfulness");
 	                	res.Score = rs.getDouble("Score");
-	                	res.Time = rs.getLong("Time");
+	                	res.Time = rs.getString("Time");
 	                	res.Summary = rs.getString("Summary");
 	                	res.Text = rs.getString("Text");
 	                }
@@ -65,7 +67,7 @@ public String name;
 	}
 	
 
-	public ArrayList<SingleComment> getCommentByUser(String Id) {
+	static public ArrayList<SingleComment> getCommentByUser(String Id) {
 		
 		ArrayList<SingleComment> arr_res = new ArrayList<SingleComment>();
 		
@@ -77,7 +79,7 @@ public String name;
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
 	                String sql = "SELECT ReviewId, UserId, ProductId, Helpfulness, Score, Time,"
-	                		+ "Summary, Text FROM Review WHERE UserId = " + Id;
+	                		+ "Summary, Text FROM review WHERE UserId = " + Id;
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                while(rs.next()) {
@@ -88,7 +90,7 @@ public String name;
 	                	res.ProductId = rs.getString("ProductId");
 	                	res.Helpfulness = rs.getInt("Helpfulness");
 	                	res.Score = rs.getDouble("Score");
-	                	res.Time = rs.getLong("Time");
+	                	res.Time = rs.getString("Time");
 	                	res.Summary = rs.getString("Summary");
 	                	res.Text = rs.getString("Text");
 	                	
@@ -108,7 +110,7 @@ public String name;
 		 return arr_res;
 	}
 	
-	public ArrayList<SingleComment> getCommentByMovie(String Id) {
+	static public ArrayList<SingleComment> getCommentByMovie(String Id) {
 		
 		ArrayList<SingleComment> arr_res = new ArrayList<SingleComment>();
 		
@@ -120,7 +122,7 @@ public String name;
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
 	                String sql = "SELECT ReviewId, UserId, ProductId, Helpfulness, Score, Time,"
-	                		+ "Summary, Text FROM Review WHERE ProductId = " + Id;
+	                		+ "Summary, Text FROM review WHERE ProductId = " + Id;
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                while(rs.next()) {
@@ -131,7 +133,7 @@ public String name;
 	                	res.ProductId = rs.getString("ProductId");
 	                	res.Helpfulness = rs.getInt("Helpfulness");
 	                	res.Score = rs.getDouble("Score");
-	                	res.Time = rs.getLong("Time");
+	                	res.Time = rs.getString("Time");
 	                	res.Summary = rs.getString("Summary");
 	                	res.Text = rs.getString("Text");
 	                	

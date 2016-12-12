@@ -7,11 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import controller.String;
+
 public class Movie {
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
-	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452712?user=S_1452712&password=ItrHCVnJ";
-
+	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
+	
 	public class SingleMovie {
 		public String ProductId;
 		public String Name;
@@ -27,7 +29,7 @@ public class Movie {
 		public String Category;
 	}
 	
-	public SingleMovie getMovieById(String Id){
+	static public SingleMovie getMovieById(String Id){
 		
 		SingleMovie res = new SingleMovie();
 		
@@ -39,7 +41,7 @@ public class Movie {
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
                 String sql = "SELECT ProductId, Name, Format, Edition, Discs, Price,"
-                		+ "Time, Rated, Director, Actors, Style, Category FROM Movie WHERE ProductId = " + Id;
+                		+ "Time, Rated, Director, Actors, Style, Category FROM movie WHERE ProductId = " + Id;
 
                 ResultSet rs = stmt.executeQuery(sql);
                 while(rs.next()) {
@@ -69,7 +71,7 @@ public class Movie {
 	 
 	}
 	
-	public ArrayList<SingleMovie> getMovieByIdList(ArrayList<String[]> MovieId){
+	static public ArrayList<SingleMovie> getMovieByIdList(ArrayList<String> MovieId){
 		
 		ArrayList<SingleMovie> res = new ArrayList<SingleMovie>();
 		
@@ -82,12 +84,11 @@ public class Movie {
 
     			Statement stmt = conn.createStatement();
     			
-            	for(String[] MovieList: MovieId) {
-            		for(String Id: MovieList) {
+            	for(String Id: MovieId) {
             			
             			SingleMovie tmp = new SingleMovie();
             			String sql = "SELECT ProductId, Name, Format, Edition, Discs, Price,"
-            					+ "Time, Rated, Director, Actors, Style, Category FROM Movie WHERE ProductId = " + Id;
+            					+ "Time, Rated, Director, Actors, Style, Category FROM movie WHERE ProductId = " + Id;
 
             			ResultSet rs = stmt.executeQuery(sql);
             			while(rs.next()) {
@@ -108,7 +109,6 @@ public class Movie {
             			} 
             			
             			rs.close();   			
-            		}
             	}
 
                 stmt.close();

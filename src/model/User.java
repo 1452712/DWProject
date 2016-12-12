@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import controller.String;
+
 public class User {
 	
-	public String name;
+	public String Name;
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
-	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452712?user=S_1452712&password=ItrHCVnJ";
-
+	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
+	
 	public User(String Id) {
 		 try{
 	            Class.forName(dbDriverName).newInstance();
@@ -21,11 +23,11 @@ public class User {
 
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
-	                String sql = "SELECT ProfileName FROM User WHERE UserId = " + Id;
+	                String sql = "SELECT ProfileName FROM user WHERE UserId = " + Id;
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                while(rs.next()) {
-	                	this.name = rs.getString("ProfileName");
+	                	this.Name = rs.getString("ProfileName");
 	                }
 
 	                rs.close();

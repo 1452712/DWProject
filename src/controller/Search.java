@@ -18,7 +18,7 @@ public class Search {
 	
 	public Result searchByTime(int Year, int Month, int Season, int Weekday){
 
-		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
 		
@@ -30,7 +30,7 @@ public class Search {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT Count, ProductId FROM Time_Dimension WHERE Year = " + Integer.toString(Year)
+                String sql = "SELECT Count, Time FROM time_dimension WHERE Year = " + Integer.toString(Year)
                 + (Month == 0? "":("AND Month = " + Integer.toString(Month)))
                 + (Season == 0? "":("AND Season = " + Integer.toString(Season)))
                 + (Weekday == 0? "":("AND Weekday = " + Integer.toString(Weekday)));
@@ -42,7 +42,12 @@ public class Search {
         		
                 while(rs.next()) {
                 	count += rs.getInt("Count");
-                	MovieId.addAll((Collection<? extends String[]>) rs.getArray("ProductId"));
+                	String sql2 = "SELECT TimeProductId FROM time_movie_list WHERE TimeId = " + Integer.toString(rs.getInt("Time"));
+                	ResultSet rs2 = stmt.executeQuery(sql2);
+                	while(rs2.next()){
+                		MovieId.add(rs2.getString("TimeProductId"));
+                	}
+                	rs2.close();
                 }
 
                 rs.close();
@@ -63,7 +68,7 @@ public class Search {
         	if(conn != null){
         		Statement stmt = conn.createStatement();
         		
-        		String sql = "SELECT Count, ProductId FROM Time_Dimension WHERE Year = " + Integer.toString(Year)
+        		String sql = "SELECT Count, Time FROM time_dimension WHERE Year = " + Integer.toString(Year)
                 + (Month == 0? "":("AND Month = " + Integer.toString(Month)))
                 + (Season == 0? "":("AND Season = " + Integer.toString(Season)))
                 + (Weekday == 0? "":("AND Weekday = " + Integer.toString(Weekday)));
@@ -72,11 +77,6 @@ public class Search {
         		dwstart = System.currentTimeMillis();
                 ResultSet rs = stmt.executeQuery(sql);
         		dwend = System.currentTimeMillis();
-        		
-                while(rs.next()) {
-                	count += rs.getInt("Count");
-                	MovieId.addAll((Collection<? extends String[]>) rs.getArray("ProductId"));
-                }
 
                 rs.close();
                 stmt.close();
@@ -89,23 +89,338 @@ public class Search {
 		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
 	}
 	
-//	public Result searchByName(String MovieName) {
-//		
-//	}
-//
-//	public Result searchByDirector(String DirectorName) {
-//		
-//	}
-//	
-//	public Result searchByActor(String ActorName) {
-//		
-//	}
-//	
-//	public Result searchByCategory(String Category) {
-//		
-//	}
-//	
-//	public Result searchByKeyword(String Attribute, String Value) {
-//		
-//	}
+	public Result searchByName(String MovieName) {
+		
+		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
+		int count = 0;
+		
+		// search in db
+        try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT Count, NameId FROM name_dimension WHERE Name = %" + MovieName + "%";
+                
+                // execute the query & calculate the time
+        		dbstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dbend = System.currentTimeMillis();
+        		
+        		while(rs.next()) {
+                	count += rs.getInt("Count");
+                	String sql2 = "SELECT NameProductId FROM name_movie_list WHERE NameId = " + rs.getString("NameId");
+                	ResultSet rs2 = stmt.executeQuery(sql2);
+                	while(rs2.next()){
+                		MovieId.add(rs2.getString("NameProductId"));
+                	}
+                	rs2.close();
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        //search in dw
+        try {
+        	Class.forName(dwDriverName);
+        	Connection conn = DriverManager.getConnection(dwConn);
+
+        	if(conn != null){
+        		Statement stmt = conn.createStatement();
+        		
+        		String sql = "SELECT Count, NameId FROM name_dimension WHERE Name = %" + MovieName + "%";
+                
+                // execute the query & calculate the time
+        		dwstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dwend = System.currentTimeMillis();
+
+                rs.close();
+                stmt.close();
+                conn.close();
+        	}
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        } 
+		
+		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
+		
+	}
+
+	public Result searchByDirector(String DirectorName) {
+
+		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
+		int count = 0;
+		
+		// search in db
+        try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT Count, DirectorId FROM director_dimension WHERE DirectorName = %" + DirectorName + "%";
+                
+                // execute the query & calculate the time
+        		dbstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dbend = System.currentTimeMillis();
+        		
+        		while(rs.next()) {
+                	count += rs.getInt("Count");
+                	String sql2 = "SELECT DirectorProductId FROM director_movie_list WHERE DirectorId = " + rs.getString("DirectorId");
+                	ResultSet rs2 = stmt.executeQuery(sql2);
+                	while(rs2.next()){
+                		MovieId.add(rs2.getString("DirectorProductId"));
+                	}
+                	rs2.close();
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        //search in dw
+        try {
+        	Class.forName(dwDriverName);
+        	Connection conn = DriverManager.getConnection(dwConn);
+
+        	if(conn != null){
+        		Statement stmt = conn.createStatement();
+        		
+        		String sql = "SELECT Count, DirectorId FROM director_dimension WHERE DirectorName = %" + DirectorName + "%";
+                
+                // execute the query & calculate the time
+        		dwstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dwend = System.currentTimeMillis();
+
+                rs.close();
+                stmt.close();
+                conn.close();
+        	}
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        } 
+		
+		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
+		
+	}
+	
+	public Result searchByActor(String ActorName) {	
+
+		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
+		int count = 0;
+		
+		// search in db
+        try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName = %" + ActorName + "%";
+                
+                // execute the query & calculate the time
+        		dbstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dbend = System.currentTimeMillis();
+        		
+        		while(rs.next()) {
+                	count += rs.getInt("Count");
+                	String sql2 = "SELECT ActorProductId FROM actor_movie_list WHERE ActorId = " + rs.getString("ActorId");
+                	ResultSet rs2 = stmt.executeQuery(sql2);
+                	while(rs2.next()){
+                		MovieId.add(rs2.getString("ActorProductId"));
+                	}
+                	rs2.close();
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        //search in dw
+        try {
+        	Class.forName(dwDriverName);
+        	Connection conn = DriverManager.getConnection(dwConn);
+
+        	if(conn != null){
+        		Statement stmt = conn.createStatement();
+        		
+        		String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName = %" + ActorName + "%";
+                
+                // execute the query & calculate the time
+        		dwstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dwend = System.currentTimeMillis();
+
+                rs.close();
+                stmt.close();
+                conn.close();
+        	}
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        } 
+		
+		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
+		
+	}
+	
+	public Result searchByCategory(String Category) {
+		
+		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
+		int count = 0;
+		
+		// search in db
+        try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT Count, CategoryId FROM category_dimension WHERE Category = " + Category;
+                
+                // execute the query & calculate the time
+        		dbstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dbend = System.currentTimeMillis();
+        		
+        		while(rs.next()) {
+                	count += rs.getInt("Count");
+                	String sql2 = "SELECT CategoryProductId FROM category_movie_list WHERE CategoryId = " + rs.getString("CategoryId");
+                	ResultSet rs2 = stmt.executeQuery(sql2);
+                	while(rs2.next()){
+                		MovieId.add(rs2.getString("CategoryProductId"));
+                	}
+                	rs2.close();
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        //search in dw
+        try {
+        	Class.forName(dwDriverName);
+        	Connection conn = DriverManager.getConnection(dwConn);
+
+        	if(conn != null){
+        		Statement stmt = conn.createStatement();
+        		
+        		String sql = "SELECT Count, CategoryId FROM category_dimension WHERE Category = " + Category;
+                
+                // execute the query & calculate the time
+        		dwstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dwend = System.currentTimeMillis();
+
+                rs.close();
+                stmt.close();
+                conn.close();
+        	}
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        } 
+		
+		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
+		
+	}
+	
+	public Result searchByKeyword(String Attribute, String Value) {
+
+		ArrayList<String[]> MovieId = new ArrayList<String[]>();
+		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
+		int count = 0;
+		
+		// search in db
+        try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT ProductId FROM movie WHERE " + Attribute + " = %" + Value + "%";
+                
+                // execute the query & calculate the time
+        		dbstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dbend = System.currentTimeMillis();
+        		
+                while(rs.next()) {
+                	count += 1;
+                	MovieId.add(rs.getString("ProductId"));
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        //search in dw
+        try {
+        	Class.forName(dwDriverName);
+        	Connection conn = DriverManager.getConnection(dwConn);
+
+        	if(conn != null){
+        		Statement stmt = conn.createStatement();
+
+                String sql = "SELECT ProductId FROM movie WHERE " + Attribute + " = %" + Value + "%";
+                
+                // execute the query & calculate the time
+        		dwstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dwend = System.currentTimeMillis();
+
+                rs.close();
+                stmt.close();
+                conn.close();
+        	}
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        } 
+		
+		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
+		
+	}
 }
