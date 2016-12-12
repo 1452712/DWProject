@@ -13,7 +13,7 @@ public class Search {
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
 	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452712?user=S_1452712&password=ItrHCVnJ";
-	private static String dwDriverName = "org.apache.hadoop.hive.jdbc.HiveDriver";
+	private static String dwDriverName = "com.cloudera.hive.jdbc4.HS2Driver";;
 	private static String dwConn = "jdbc:hive://192.168.181.128:10000/default";
 	
 	public Result searchByTime(int Year, int Month, int Season, int Weekday){
