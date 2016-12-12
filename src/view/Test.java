@@ -1,6 +1,8 @@
 package view;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +36,7 @@ public class Test extends HttpServlet {
 		//test
 		Result res = new Result(search.searchByTime(2001, 10, 0, 1));
 		ArrayList<Movie.SingleMovie> list = new ArrayList<Movie.SingleMovie>();
-		if(res != null) response.getWriter().append("searchByTime: success").append(Integer.toString(res.Count).append("\r\n"));
+		if(res != null) response.getWriter().append("searchByTime: success").append(Integer.toString(res.Count)).append("\r\n");
 		if(res.MovieId != null) {
 			list = Movie.getMovieByIdList(res.MovieId);
 			for(Movie.SingleMovie item:list ) {
@@ -68,7 +70,7 @@ public class Test extends HttpServlet {
 		res = new Result(search.searchByName(""));
 		if(res != null) response.getWriter().append("searchByName: success").append(Integer.toString(res.Count)).append("\r\n");
 	
-		user = new User("");
+		User user = new User("");
 		if(user != null) response.getWriter().append("User: success").append(user.Name).append("\r\n");
 		
 		if(Comment.getCommentById("") != null){

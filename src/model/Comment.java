@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import controller.String;
-
 public class Comment {
 
 public String name;
@@ -29,7 +27,8 @@ public String name;
 	
 	static public SingleComment getCommentById(String Id) {
 		
-		SingleComment res = new SingleComment();
+		Comment comment = new Comment();
+		SingleComment res = comment.new SingleComment();
 		
 		 try{
 	            Class.forName(dbDriverName).newInstance();
@@ -82,9 +81,10 @@ public String name;
 	                		+ "Summary, Text FROM review WHERE UserId = " + Id;
 
 	                ResultSet rs = stmt.executeQuery(sql);
+	                Comment comment = new Comment();
 	                while(rs.next()) {
 	                	
-	            		SingleComment res = new SingleComment();
+	            		SingleComment res = comment.new SingleComment();
 	                	res.ReviewId = rs.getString("ReviewId");
 	                	res.UserId = rs.getString("UserId");
 	                	res.ProductId = rs.getString("ProductId");
@@ -125,9 +125,10 @@ public String name;
 	                		+ "Summary, Text FROM review WHERE ProductId = " + Id;
 
 	                ResultSet rs = stmt.executeQuery(sql);
+	                Comment comment = new Comment();
 	                while(rs.next()) {
 	                	
-	            		SingleComment res = new SingleComment();
+	            		SingleComment res = comment.new SingleComment();
 	                	res.ReviewId = rs.getString("ReviewId");
 	                	res.UserId = rs.getString("UserId");
 	                	res.ProductId = rs.getString("ProductId");

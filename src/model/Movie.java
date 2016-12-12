@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import controller.String;
-
 public class Movie {
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
@@ -31,7 +29,8 @@ public class Movie {
 	
 	static public SingleMovie getMovieById(String Id){
 		
-		SingleMovie res = new SingleMovie();
+		Movie movie = new Movie();
+		SingleMovie res = movie.new SingleMovie();
 		
 		try{
             Class.forName(dbDriverName).newInstance();
@@ -83,10 +82,11 @@ public class Movie {
             if(conn!=null) {
 
     			Statement stmt = conn.createStatement();
+    			Movie movie = new Movie();
     			
             	for(String Id: MovieId) {
             			
-            			SingleMovie tmp = new SingleMovie();
+            			SingleMovie tmp = movie.new SingleMovie();
             			String sql = "SELECT ProductId, Name, Format, Edition, Discs, Price,"
             					+ "Time, Rated, Director, Actors, Style, Category FROM movie WHERE ProductId = " + Id;
 
