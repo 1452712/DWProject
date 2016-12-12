@@ -14,4 +14,8 @@ public class Result {
 		DWTime = ResDWTime;
 		Count = ResCount;
 	}
+
+	public Result(Result res) {
+		this(res.DBTime, res.DWTime, res.Count, res.MovieId);
+	}
 }

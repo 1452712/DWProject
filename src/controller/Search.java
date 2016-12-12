@@ -12,9 +12,9 @@ import model.Result;
 public class Search {
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
-	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452712?user=S_1452712&password=ItrHCVnJ";
-	private static String dwDriverName = "com.cloudera.hive.jdbc4.HS2Driver";;
-	private static String dwConn = "jdbc:hive://192.168.181.128:10000/default";
+	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
+	private static String dwDriverName = "com.cloudera.hive.jdbc4.HS2Driver";
+	private static String dwConn = "jdbc:hive2://192.168.44.134:10000/default";
 	
 	public Result searchByTime(int Year, int Month, int Season, int Weekday){
 
@@ -86,26 +86,26 @@ public class Search {
             e.printStackTrace();
         } 
 		
-		return new Result(dbend-dbstart,0,count,MovieId);
+		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
 	}
 	
-	public Result searchByName(String MovieName) {
-		
-	}
-
-	public Result searchByDirector(String DirectorName) {
-		
-	}
-	
-	public Result searchByActor(String ActorName) {
-		
-	}
-	
-	public Result searchByCategory(String Category) {
-		
-	}
-	
-	public Result searchByKeyword(String Attribute, String Value) {
-		
-	}
+//	public Result searchByName(String MovieName) {
+//		
+//	}
+//
+//	public Result searchByDirector(String DirectorName) {
+//		
+//	}
+//	
+//	public Result searchByActor(String ActorName) {
+//		
+//	}
+//	
+//	public Result searchByCategory(String Category) {
+//		
+//	}
+//	
+//	public Result searchByKeyword(String Attribute, String Value) {
+//		
+//	}
 }

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.Search;
+import model.*;
+
 /**
  * Servlet implementation class Homepage
  */
@@ -31,7 +34,12 @@ public class Homepage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Search search = new Search();
+		Result res = new Result(search.searchByTime(2001, 10, 0, 1));
+		
+		if(res != null) response.getWriter().append("success");
+		
+		
 	}
 
 	/**
