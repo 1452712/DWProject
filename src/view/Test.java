@@ -51,7 +51,6 @@ public class Test extends HttpServlet {
 					.append("\r\n Rated: ").append(item.Rated)
 					.append("\r\n Director: ").append(item.Director)
 					.append("\r\n Actors: ").append(item.Actors)
-					.append("\r\n Style: ").append(item.Style)
 					.append("\r\n Category: ").append(item.Category).append("\r\n");
 			}
 		}

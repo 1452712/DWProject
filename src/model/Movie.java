@@ -23,7 +23,6 @@ public class Movie {
 		public String Rated;
 		public String Director;
 		public String Actors;
-		public String Style;
 		public String Category;
 	}
 	
@@ -40,7 +39,7 @@ public class Movie {
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
                 String sql = "SELECT ProductId, Name, Format, Edition, Discs, Price,"
-                		+ "Time, Rated, Director, Actors, Style, Category FROM movie WHERE ProductId = " + Id;
+                		+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = " + Id;
 
                 ResultSet rs = stmt.executeQuery(sql);
                 while(rs.next()) {
@@ -54,7 +53,6 @@ public class Movie {
                 	res.Rated = rs.getString("Rated");
                 	res.Director = rs.getString("Director");
                 	res.Actors = rs.getString("Actors");
-                	res.Style = rs.getString("Style");
                 	res.Category = rs.getString("Category");
                 }
 
@@ -88,7 +86,7 @@ public class Movie {
             			
             			SingleMovie tmp = movie.new SingleMovie();
             			String sql = "SELECT ProductId, Name, Format, Edition, Discs, Price,"
-            					+ "Time, Rated, Director, Actors, Style, Category FROM movie WHERE ProductId = " + Id;
+            					+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = " + Id;
 
             			ResultSet rs = stmt.executeQuery(sql);
             			while(rs.next()) {
@@ -102,7 +100,6 @@ public class Movie {
             				tmp.Rated = rs.getString("Rated");
             				tmp.Director = rs.getString("Director");
             				tmp.Actors = rs.getString("Actors");
-            				tmp.Style = rs.getString("Style");
             				tmp.Category = rs.getString("Category");
             				
             				res.add(tmp);
