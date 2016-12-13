@@ -421,11 +421,11 @@
 									<select name="senior" id="senior" class="sel1"
 										onchange="getSenior(this.id)">
 										<option value="0">SELECT ELEMENT</option>
-										<option value="1">TIME</option>
-										<option value="2">TITLE</option>
-										<option value="3">DIRECTOR</option>
-										<option value="4">ACTOR</option>
-										<option value="5">CATEGORY</option>
+										<option value="Time">TIME</option>
+										<option value="Name">TITLE</option>
+										<option value="Director">DIRECTOR</option>
+										<option value="Actor">ACTOR</option>
+										<option value="Category">CATEGORY</option>
 									</select>
 								</form>
 								<div id="a"></div>
