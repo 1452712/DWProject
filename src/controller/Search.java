@@ -16,7 +16,7 @@ public class Search {
 	private static String dwDriverName = "com.cloudera.hive.jdbc4.HS2Driver";
 	private static String dwConn = "jdbc:hive2://192.168.44.134:10000/default";
 	
-	public static Result searchByTime(int Year, int Month, int Season, int Weekday){
+	public Result searchByTime(int Year, int Month, int Season, int Weekday){
 
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
@@ -89,7 +89,7 @@ public class Search {
 		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
 	}
 	
-	public static Result searchByName(String MovieName) {
+	public Result searchByName(String MovieName) {
 		
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
@@ -157,7 +157,7 @@ public class Search {
 		
 	}
 
-	public static Result searchByDirector(String DirectorName) {
+	public Result searchByDirector(String DirectorName) {
 
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
@@ -225,7 +225,7 @@ public class Search {
 		
 	}
 	
-	public static Result searchByActor(String ActorName) {	
+	public Result searchByActor(String ActorName) {	
 
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
@@ -293,7 +293,7 @@ public class Search {
 		
 	}
 	
-	public static Result searchByCategoryId(String CategoryId) {
+	public Result searchByCategoryId(String CategoryId) {
 		
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
@@ -356,7 +356,7 @@ public class Search {
 		
 	}
 	
-	public static Result searchByCategory(String Category) {
+	public Result searchByCategory(String Category) {
 		
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
@@ -424,7 +424,7 @@ public class Search {
 		
 	}
 	
-	public static Result searchByKeyword(String Attribute, String Value) {
+	public Result searchByKeyword(String Attribute, String Value) {
 
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
