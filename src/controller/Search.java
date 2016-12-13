@@ -293,6 +293,69 @@ public class Search {
 		
 	}
 	
+	public Result searchByCategoryId(String CategoryId) {
+		
+		ArrayList<String> MovieId = new ArrayList<String>();
+		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
+		int count = 0;
+		
+		// search in db
+        try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT CategoryProductId FROM category_movie_list WHERE CategoryId = " + CategoryId;
+                
+                // execute the query & calculate the time
+        		dbstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dbend = System.currentTimeMillis();
+        		
+        		while(rs.next()) {
+                	count += 1;
+            		MovieId.add(rs.getString("CategoryProductId"));
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e){
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        //search in dw
+        try {
+        	Class.forName(dwDriverName);
+        	Connection conn = DriverManager.getConnection(dwConn);
+
+        	if(conn != null){
+        		Statement stmt = conn.createStatement();
+        		
+        		String sql = "SELECT CategoryProductId FROM category_movie_list WHERE CategoryId = " + CategoryId;
+                
+                // execute the query & calculate the time
+        		dwstart = System.currentTimeMillis();
+                ResultSet rs = stmt.executeQuery(sql);
+        		dwend = System.currentTimeMillis();
+
+                rs.close();
+                stmt.close();
+                conn.close();
+        	}
+        } catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        } 
+		
+		return new Result(dbend-dbstart,dwend-dwstart,count,MovieId);
+		
+	}
+	
 	public Result searchByCategory(String Category) {
 		
 		ArrayList<String> MovieId = new ArrayList<String>();

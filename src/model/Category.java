@@ -1,0 +1,45 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+
+import model.CategoryList;
+
+public class Category {
+	
+	private static String dbDriverName = "com.mysql.jdbc.Driver"; 
+	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
+	
+	public static ArrayList<CategoryList> getCategoryList() {
+		
+		ArrayList<CategoryList> res = new ArrayList<CategoryList>();
+		try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT Category, CategoryId FROM category_dimension";
+
+                ResultSet rs = stmt.executeQuery(sql);
+                while(rs.next()) {
+                	res.add(new CategoryList(rs.getString("Category"), rs.getString("CategoryId")));               	
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        }
+		
+		return res;
+	}
+
+}
