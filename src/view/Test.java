@@ -45,7 +45,6 @@ public class Test extends HttpServlet {
 					.append("\r\n Name: ").append(item.Name)
 				    .append("\r\n Format: ").append(item.Format)
 					.append("\r\n Edition: ").append(item.Edition)
-					.append("\r\n Discs: ").append(item.Discs)
 					.append("\r\n Price: ").append(Double.toString(item.Price))
 					.append("\r\n Time: ").append(Long.toString(item.Time))
 					.append("\r\n Rated: ").append(item.Rated)

@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import model.Movie;
+import model.Result;
 import model.Category;
-import model.CategoryList;
 
 /**
- * Servlet implementation class Homepage
+ * Servlet implementation class SearchByCategory
  */
-@WebServlet({ "/Homepage", "/" })
-public class Homepage extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/SearchByCategory" })
+public class SearchByCategory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Homepage() {
+    public SearchByCategory() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +34,18 @@ public class Homepage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<CategoryList> category_list = new ArrayList<CategoryList>();
-		category_list = Category.getCategoryList();
-		
-		HttpSession session = request.getSession(true);
-        session.setAttribute("CategoryList", category_list);
+        String id = (String) request.getParameter("category");
         
-		request.getRequestDispatcher("Homepage.jsp").forward(request, response);
+        Result result = new Result(Search.searchByCategoryId(id));
+        
+        HttpSession session = request.getSession(true);
+        session.setAttribute("Count", result.Count);
+        session.setAttribute("DBTime", result.DBTime);
+        session.setAttribute("DWTime", result.DWTime);
+        session.setAttribute("SearchCondition", "Category: " + Category.getCategoryName(id));
+        
+        response.sendRedirect("/ResultSimple");
+		
 	}
 
 	/**

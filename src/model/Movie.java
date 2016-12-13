@@ -17,7 +17,6 @@ public class Movie {
 		public String Name;
 		public String Format;
 		public String Edition;
-		public String Discs;
 		public double Price;
 		public long Time;
 		public String Rated;
@@ -38,7 +37,7 @@ public class Movie {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT ProductId, Name, Format, Edition, Discs, Price,"
+                String sql = "SELECT ProductId, Name, Format, Edition, Price,"
                 		+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = " + Id;
 
                 ResultSet rs = stmt.executeQuery(sql);
@@ -47,7 +46,6 @@ public class Movie {
                 	res.Name = rs.getString("name");
                 	res.Format = rs.getString("Format");
                 	res.Edition = rs.getString("Edition");
-                	res.Discs = rs.getString("Discs");
                 	res.Price = rs.getDouble("Price");
                 	res.Time = rs.getLong("Time");
                 	res.Rated = rs.getString("Rated");
@@ -85,7 +83,7 @@ public class Movie {
             	for(String Id: MovieId) {
             			
             			SingleMovie tmp = movie.new SingleMovie();
-            			String sql = "SELECT ProductId, Name, Format, Edition, Discs, Price,"
+            			String sql = "SELECT ProductId, Name, Format, Edition, Price,"
             					+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = " + Id;
 
             			ResultSet rs = stmt.executeQuery(sql);
@@ -94,7 +92,6 @@ public class Movie {
             				tmp.Name = rs.getString("name");
             				tmp.Format = rs.getString("Format");
             				tmp.Edition = rs.getString("Edition");
-            				tmp.Discs = rs.getString("Discs");
             				tmp.Price = rs.getDouble("Price");
             				tmp.Time = rs.getLong("Time");
             				tmp.Rated = rs.getString("Rated");
