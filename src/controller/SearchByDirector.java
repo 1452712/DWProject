@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
-import model.CategoryList;
+
+import model.Movie;
+import model.Result;
 
 /**
- * Servlet implementation class Homepage
+ * Servlet implementation class SearchByDirector
  */
-@WebServlet({ "/Homepage", "/" })
-public class Homepage extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/SearchByDirector" })
+public class SearchByDirector extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Homepage() {
+    public SearchByDirector() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +33,20 @@ public class Homepage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<CategoryList> category_list = new ArrayList<CategoryList>();
-		category_list = Category.getCategoryList();
-		
-		HttpSession session = request.getSession(true);
-        session.setAttribute("CategoryList", category_list);
+        String name = (String) request.getParameter("director");
         
-		request.getRequestDispatcher("Homepage.jsp").forward(request, response);
+        Result result = new Result(Search.searchByDirector(name));
+        ArrayList<Movie.SingleMovie> movie_list = new ArrayList<Movie.SingleMovie>();
+        movie_list = Movie.getMovieByIdList(result.MovieId);
+        
+        HttpSession session = request.getSession(true);
+        session.setAttribute("Count", result.Count);
+        session.setAttribute("DBTime", result.DBTime);
+        session.setAttribute("DWTime", result.DWTime);
+        session.setAttribute("MovieList",movie_list);
+        session.setAttribute("SearchCondition", "Director: " + name);
+        
+        response.sendRedirect("/ResultDetail");
 	}
 
 	/**

@@ -41,5 +41,34 @@ public class Category {
 		
 		return res;
 	}
+	
+	public static String getCategoryName(String id) {
+		
+		String res = new String();
+		try{
+            Class.forName(dbDriverName).newInstance();
+
+            Connection conn = DriverManager.getConnection(dbConn);
+
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                String sql = "SELECT Category FROM category_dimension WHERE CategoryId = " + id;
+
+                ResultSet rs = stmt.executeQuery(sql);
+                while(rs.next()) {
+                	res = rs.getString("Category");             	
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        }
+		
+		return res;
+		
+	}
 
 }
