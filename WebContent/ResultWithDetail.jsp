@@ -94,6 +94,9 @@
 		<header>
 		<div id="condition">
 			<h7>Searching Condition: <%=SearchCondition%></h7>
+			<%-- TEST: show the time --%>
+					DBTime: <%=DBTime %><br/>
+					DWTime: <%=DWTime %><br/>
 		</div>
 		</br>
 		<% for(int i = 0; i < MovieList.size(); i++) {%>

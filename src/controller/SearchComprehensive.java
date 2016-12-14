@@ -107,12 +107,12 @@ public class SearchComprehensive extends HttpServlet {
 		
         HttpSession session = request.getSession(true);
         session.setAttribute("Count", count);
-        session.setAttribute("DBTime", dbtime);
-        session.setAttribute("DWTime", dwtime);
+        session.setAttribute("DBTime", (dbtime > 0)?dbtime:0);
+        session.setAttribute("DWTime", (dwtime > 0)?dwtime:0);
 
         session.setAttribute("SearchCondition", search_condition);
 
-        response.sendRedirect("/ResultSimple");
+        response.sendRedirect("./ResultSimple");
 	}
 
 	/**

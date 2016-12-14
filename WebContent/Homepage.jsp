@@ -14,7 +14,7 @@
 	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700|Roboto:300,400'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<%=path%>/css/animate.css">
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="./css/bootstrap.css">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/modernizr-2.6.2.min.js"></script>
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet"
@@ -44,7 +44,7 @@
 			<div class="row animate-box">
 				<div class="col-md-12">
 					<ul class="nav text-center">
-						<li class="active"><a href="index.html"><span>Homepage</span></a></li>
+						<li class="active"><a href="/DataWarehouse/Homepage"><span>Homepage</span></a></li>
 						<li><a href="#intro">Searchpage</a></li>
 						<li><a href="#members">Members</a></li>
 					</ul>

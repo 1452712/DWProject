@@ -83,6 +83,9 @@
 	<div align="center">
 		<br> <font size=10px>Searching Condition: <%=SearchCondition%></font>
 		<br> <br> <font size=10px>Output: <%=Count%></font> <br>
+		<%-- TEST: show the time --%>
+		DBTime: <%=DBTime %><br/>
+		DWTime: <%=DWTime %><br/>
 		<br>
 	</div>
 

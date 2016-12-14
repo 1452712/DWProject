@@ -81,6 +81,7 @@ public class Test extends HttpServlet {
 			response.getWriter().append("getCommentByUser: success").append("\r\n");
 		}
 		
+		System.out.print("%%%%%%%%%%%%%%%%\r\n");
 	}
 
 	/**

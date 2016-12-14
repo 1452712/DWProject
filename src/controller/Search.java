@@ -17,7 +17,7 @@ public class Search {
 	private static String dwConn = "jdbc:hive2://192.168.44.134:10000/default";
 	
 	public static Result searchByTime(int Year, int Month, int Season, int Weekday){
-
+		
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
@@ -31,18 +31,18 @@ public class Search {
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
                 String sql = "SELECT Count, Time FROM time_dimension WHERE Year = " + Integer.toString(Year)
-                + (Month == 0? "":("AND Month = " + Integer.toString(Month)))
-                + (Season == 0? "":("AND Season = " + Integer.toString(Season)))
-                + (Weekday == 0? "":("AND Weekday = " + Integer.toString(Weekday)));
+                + (Month == 0? "":(" AND Month = " + Integer.toString(Month)))
+                + (Season == 0? "":(" AND Season = " + Integer.toString(Season)))
+                + (Weekday == 0? "":(" AND Weekday = " + Integer.toString(Weekday)));
                 
                 // execute the query & calculate the time
-        		dbstart = System.currentTimeMillis();
+        		dbstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dbend = System.currentTimeMillis();
+        		dbend = System.nanoTime();
         		
                 while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT TimeProductId FROM time_movie_list WHERE TimeId = " + Integer.toString(rs.getInt("Time"));
+                	String sql2 = "SELECT TimeProductId FROM time_movie_list WHERE TimeId = \'" + Integer.toString(rs.getInt("Time"))+"\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("TimeProductId"));
@@ -69,16 +69,16 @@ public class Search {
         		Statement stmt = conn.createStatement();
         		
         		String sql = "SELECT Count, Time FROM time_dimension WHERE Year = " + Integer.toString(Year)
-                + (Month == 0? "":("AND Month = " + Integer.toString(Month)))
-                + (Season == 0? "":("AND Season = " + Integer.toString(Season)))
-                + (Weekday == 0? "":("AND Weekday = " + Integer.toString(Weekday)));
+                + (Month == 0? "":(" AND Month = " + Integer.toString(Month)))
+                + (Season == 0? "":(" AND Season = " + Integer.toString(Season)))
+                + (Weekday == 0? "":(" AND Weekday = " + Integer.toString(Weekday)));
                 
                 // execute the query & calculate the time
-        		dwstart = System.currentTimeMillis();
+        		dwstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dwend = System.currentTimeMillis();
+        		dwend = System.nanoTime();
 
-                rs.close();
+        		rs.close();
                 stmt.close();
                 conn.close();
         	}
@@ -103,16 +103,16 @@ public class Search {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT Count, NameId FROM name_dimension WHERE Name = %" + MovieName + "%";
+                String sql = "SELECT Count, NameId FROM name_dimension WHERE Name like \'%" + MovieName + "%\'";
                 
                 // execute the query & calculate the time
-        		dbstart = System.currentTimeMillis();
+        		dbstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dbend = System.currentTimeMillis();
+        		dbend = System.nanoTime();
         		
         		while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT NameProductId FROM name_movie_list WHERE NameId = " + rs.getString("NameId");
+                	String sql2 = "SELECT NameProductId FROM name_movie_list WHERE NameId = \'" + rs.getString("NameId") + "\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("NameProductId"));
@@ -138,12 +138,12 @@ public class Search {
         	if(conn != null){
         		Statement stmt = conn.createStatement();
         		
-        		String sql = "SELECT Count, NameId FROM name_dimension WHERE Name = %" + MovieName + "%";
+        		String sql = "SELECT Count, NameId FROM name_dimension WHERE Name like \'%" + MovieName + "%\'";
                 
                 // execute the query & calculate the time
-        		dwstart = System.currentTimeMillis();
+        		dwstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dwend = System.currentTimeMillis();
+        		dwend = System.nanoTime();
 
                 rs.close();
                 stmt.close();
@@ -171,16 +171,16 @@ public class Search {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT Count, DirectorId FROM director_dimension WHERE DirectorName = %" + DirectorName + "%";
+                String sql = "SELECT Count, DirectorId FROM director_dimension WHERE DirectorName like \'%" + DirectorName + "%\'";
                 
                 // execute the query & calculate the time
-        		dbstart = System.currentTimeMillis();
+        		dbstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dbend = System.currentTimeMillis();
+        		dbend = System.nanoTime();
         		
         		while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT DirectorProductId FROM director_movie_list WHERE DirectorId = " + rs.getString("DirectorId");
+                	String sql2 = "SELECT DirectorProductId FROM director_movie_list WHERE DirectorId = \'" + rs.getString("DirectorId") + "\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("DirectorProductId"));
@@ -206,12 +206,12 @@ public class Search {
         	if(conn != null){
         		Statement stmt = conn.createStatement();
         		
-        		String sql = "SELECT Count, DirectorId FROM director_dimension WHERE DirectorName = %" + DirectorName + "%";
+        		String sql = "SELECT Count, DirectorId FROM director_dimension WHERE DirectorName like \'%" + DirectorName + "%\'";
                 
                 // execute the query & calculate the time
-        		dwstart = System.currentTimeMillis();
+        		dwstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dwend = System.currentTimeMillis();
+        		dwend = System.nanoTime();
 
                 rs.close();
                 stmt.close();
@@ -239,16 +239,16 @@ public class Search {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName = %" + ActorName + "%";
+                String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName like \'%" + ActorName + "%\'";
                 
                 // execute the query & calculate the time
-        		dbstart = System.currentTimeMillis();
+        		dbstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dbend = System.currentTimeMillis();
+        		dbend = System.nanoTime();
         		
         		while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT ActorProductId FROM actor_movie_list WHERE ActorId = " + rs.getString("ActorId");
+                	String sql2 = "SELECT ActorProductId FROM actor_movie_list WHERE ActorId = \'" + rs.getString("ActorId") + "\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("ActorProductId"));
@@ -274,12 +274,12 @@ public class Search {
         	if(conn != null){
         		Statement stmt = conn.createStatement();
         		
-        		String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName = %" + ActorName + "%";
+        		String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName like \'%" + ActorName + "%\'";
                 
                 // execute the query & calculate the time
-        		dwstart = System.currentTimeMillis();
+        		dwstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dwend = System.currentTimeMillis();
+        		dwend = System.nanoTime();
 
                 rs.close();
                 stmt.close();
@@ -310,9 +310,9 @@ public class Search {
                 String sql = "SELECT CategoryProductId FROM category_movie_list WHERE CategoryId = " + CategoryId;
                 
                 // execute the query & calculate the time
-        		dbstart = System.currentTimeMillis();
+        		dbstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dbend = System.currentTimeMillis();
+        		dbend = System.nanoTime();
         		
         		while(rs.next()) {
                 	count += 1;
@@ -340,9 +340,9 @@ public class Search {
         		String sql = "SELECT CategoryProductId FROM category_movie_list WHERE CategoryId = " + CategoryId;
                 
                 // execute the query & calculate the time
-        		dwstart = System.currentTimeMillis();
+        		dwstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dwend = System.currentTimeMillis();
+        		dwend = System.nanoTime();
 
                 rs.close();
                 stmt.close();
@@ -370,16 +370,16 @@ public class Search {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT Count, CategoryId FROM category_dimension WHERE Category = " + Category;
+                String sql = "SELECT Count, CategoryId FROM category_dimension WHERE Category = \'" + Category + "\'";
                 
                 // execute the query & calculate the time
-        		dbstart = System.currentTimeMillis();
+        		dbstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dbend = System.currentTimeMillis();
+        		dbend = System.nanoTime();
         		
         		while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT CategoryProductId FROM category_movie_list WHERE CategoryId = " + rs.getString("CategoryId");
+                	String sql2 = "SELECT CategoryProductId FROM category_movie_list WHERE CategoryId = \'" + rs.getString("CategoryId") + "\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("CategoryProductId"));
@@ -405,7 +405,7 @@ public class Search {
         	if(conn != null){
         		Statement stmt = conn.createStatement();
         		
-        		String sql = "SELECT Count, CategoryId FROM category_dimension WHERE Category = " + Category;
+        		String sql = "SELECT Count, CategoryId FROM category_dimension WHERE Category = \'" + Category + "\'";
                 
                 // execute the query & calculate the time
         		dwstart = System.currentTimeMillis();
@@ -438,12 +438,12 @@ public class Search {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT ProductId FROM movie WHERE " + Attribute + " = %" + Value + "%";
+                String sql = "SELECT ProductId FROM movie WHERE " + Attribute + " like \'%" + Value + "%\'";
                 
                 // execute the query & calculate the time
-        		dbstart = System.currentTimeMillis();
+        		dbstart = System.nanoTime();
                 ResultSet rs = stmt.executeQuery(sql);
-        		dbend = System.currentTimeMillis();
+        		dbend = System.nanoTime();
         		
                 while(rs.next()) {
                 	count += 1;
@@ -468,7 +468,7 @@ public class Search {
         	if(conn != null){
         		Statement stmt = conn.createStatement();
 
-                String sql = "SELECT ProductId FROM movie WHERE " + Attribute + " = %" + Value + "%";
+                String sql = "SELECT ProductId FROM movie WHERE " + Attribute + " like \'%" + Value + "%\'";
                 
                 // execute the query & calculate the time
         		dwstart = System.currentTimeMillis();
