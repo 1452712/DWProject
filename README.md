@@ -20,7 +20,7 @@
 
 ### TODO:
 
-- 前端
+##### 前端
 
 1. 季节的数据未发到后端
 
@@ -40,7 +40,7 @@
 
 6. 检索演员,需要加上选择[Starring/Supporting]的下拉框(默认Starring), value分别为'starring'和'supporting', name为'type'; 对应Comprehensive name类似time添加后缀, "\_0"是type, "\_1"是name
 
-- 后端
+##### 后端
 
 1. 执行stmt.executeQuery抛出异常时无法获取endtime，计时成负值（防护：为负时置0；待解决抛出异常问题，数据仓库没有建表）
 
@@ -48,9 +48,21 @@
 
 3. 需要根据实际检索时间决定最终表示时间的单位（目前：**ns**）
 
-### Creativity
+### Solution
 
-*Wait for updating*
+- 考虑到本项目为静态数据, 以提高检索&获取数据速度为重点:
+
+    1. 针对各搜索高频度的属性建立维度表, 针对只需要统计总数的需求, 存储Count(即可通过直接查询一次dimension表得到结果);
+
+    2. 为避免做字符串解析或join, 建立list分表(以Category为例, 总共约200,000条数据, 30个Category, 则平均每个分类下有约7,000部电影, 需要解析的字符串太长);
+
+    3. 为方便直接读取每一部电影的数据, 同时将所有属性存储于movie表中, 并将属性统一存储为字符串而非子表.
+
+- 根据未来可能添加数据的需求, 维护雪花模型:
+
+    1. 即以movie表为fact表, movie表前半部分为属性值, 后半部分为维度表id(primary不使用拼接dimension id);
+
+    2. 通过建立movie\_review\_bridge表构建review同movie的关联, 保留review中的ProductId.
 
 ### Optimization
 
