@@ -53,7 +53,7 @@ public class Test extends HttpServlet {
 					.append("\r\n Category: ").append(item.Category).append("\r\n");
 			}
 		}
-		res = new Result(search.searchByActor(""));
+		res = new Result(search.searchByActor("",""));
 		if(res != null) response.getWriter().append("searchByActor: success").append(Integer.toString(res.Count)).append("\r\n");
 
 		res = new Result(search.searchByCategory(""));

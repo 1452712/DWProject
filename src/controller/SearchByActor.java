@@ -33,9 +33,10 @@ public class SearchByActor extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String type = (String) request.getParameter("type");
         String name = (String) request.getParameter("actor");
         
-        Result result = new Result(Search.searchByActor(name));
+        Result result = new Result(Search.searchByActor(type, name));
         ArrayList<Movie.SingleMovie> movie_list = new ArrayList<Movie.SingleMovie>();
         movie_list = Movie.getMovieByIdList(result.MovieId);
         
@@ -44,7 +45,7 @@ public class SearchByActor extends HttpServlet {
         session.setAttribute("DBTime", (result.DBTime > 0)?result.DBTime:0);
         session.setAttribute("DWTime", (result.DWTime > 0)?result.DWTime:0);
         session.setAttribute("MovieList",movie_list);
-        session.setAttribute("SearchCondition", "Actor: " + name);
+        session.setAttribute("SearchCondition", "Actor" + " (" + type + ")" + ": " + name);
         
         response.sendRedirect("./ResultDetail");
 	}

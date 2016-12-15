@@ -69,7 +69,9 @@ public class SearchComprehensive extends HttpServlet {
                 dwtime += result3.DWTime;
                 break;
         	case "Actor":
-        		Result result4  = new Result(Search.searchByActor(value));
+        		String type = (String) request.getParameter(value_name + Integer.toString(index) + "_0");
+        		String name = (String) request.getParameter(value_name + Integer.toString(index) + "_1");
+        		Result result4  = new Result(Search.searchByActor(type, name));
                 count += result4.Count;
                 dbtime += result4.DBTime;
                 dwtime += result4.DWTime;

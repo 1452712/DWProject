@@ -38,9 +38,11 @@
 
 5. **所有的css/js无法正常获取**
 
+6. 检索演员,需要加上选择[Starring/Supporting]的下拉框(默认Starring), value分别为'starring'和'supporting', name为'type'; 对应Comprehensive name类似time添加后缀, "\_0"是type, "\_1"是name
+
 - 后端
 
-1. 执行stmt.executeQuery抛出异常时无法获取endtime，计时成负值（防护：为负时置0；待解决抛出异常问题，似乎是数据仓库没有建表）
+1. 执行stmt.executeQuery抛出异常时无法获取endtime，计时成负值（防护：为负时置0；待解决抛出异常问题，数据仓库没有建表）
 
 2. 没有数据，不能看有没有成功检索到结果
 

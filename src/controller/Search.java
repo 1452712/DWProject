@@ -225,11 +225,18 @@ public class Search {
 		
 	}
 	
-	public static Result searchByActor(String ActorName) {	
+	public static Result searchByActor(String Attribute, String ActorName) {	
 
 		ArrayList<String> MovieId = new ArrayList<String>();
 		long dbstart = 0, dbend = 0, dwstart = 0, dwend = 0;
 		int count = 0;
+		
+        String count_para = "StarringCount";
+        String table_para = "starring_movie_list";
+        if (Attribute.equals("supporting")){
+        	count_para = "SupportingCount";
+        	table_para = "supporting_movie_list";
+        }
 		
 		// search in db
         try{
@@ -239,7 +246,8 @@ public class Search {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName like \'%" + ActorName + "%\'";
+
+                String sql = "SELECT " + count_para + ", ActorId FROM actor_dimension WHERE ActorName like \'%" + ActorName + "%\'";
                 
                 // execute the query & calculate the time
         		dbstart = System.nanoTime();
@@ -248,7 +256,7 @@ public class Search {
         		
         		while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT ActorProductId FROM actor_movie_list WHERE ActorId = \'" + rs.getString("ActorId") + "\'";
+                	String sql2 = "SELECT ActorProductId FROM " + table_para + " WHERE ActorId = \'" + rs.getString("ActorId") + "\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("ActorProductId"));
@@ -274,7 +282,7 @@ public class Search {
         	if(conn != null){
         		Statement stmt = conn.createStatement();
         		
-        		String sql = "SELECT Count, ActorId FROM actor_dimension WHERE ActorName like \'%" + ActorName + "%\'";
+        		String sql = "SELECT " + count_para + ", ActorId FROM actor_dimension WHERE ActorName like \'%" + ActorName + "%\'";
                 
                 // execute the query & calculate the time
         		dwstart = System.nanoTime();
