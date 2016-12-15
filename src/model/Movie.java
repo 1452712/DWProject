@@ -18,7 +18,7 @@ public class Movie {
 		public String Format;
 		public String Edition;
 		public double Price;
-		public long Time;
+		public String Time;
 		public String Rated;
 		public String Director;
 		public String Actors;
@@ -47,7 +47,7 @@ public class Movie {
                 	res.Format = rs.getString("Format");
                 	res.Edition = rs.getString("Edition");
                 	res.Price = rs.getDouble("Price");
-                	res.Time = rs.getLong("Time");
+                	res.Time = rs.getString("Time");
                 	res.Rated = rs.getString("Rated");
                 	res.Director = rs.getString("Director");
                 	res.Actors = rs.getString("Actors");
@@ -93,7 +93,7 @@ public class Movie {
             				tmp.Format = rs.getString("Format");
             				tmp.Edition = rs.getString("Edition");
             				tmp.Price = rs.getDouble("Price");
-            				tmp.Time = rs.getLong("Time");
+            				tmp.Time = rs.getString("Time");
             				tmp.Rated = rs.getString("Rated");
             				tmp.Director = rs.getString("Director");
             				tmp.Actors = rs.getString("Actors");

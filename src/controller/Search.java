@@ -42,7 +42,7 @@ public class Search {
         		
                 while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT TimeProductId FROM time_movie_list WHERE TimeId = \'" + Integer.toString(rs.getInt("Time"))+"\'";
+                	String sql2 = "SELECT TimeProductId FROM time_movie_list WHERE TimeId = \'" + rs.getInt("Time")+"\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("TimeProductId"));
@@ -233,9 +233,11 @@ public class Search {
 		
         String count_para = "StarringCount";
         String table_para = "starring_movie_list";
+        String actor_para = "STActorId";
         if (Attribute.equals("supporting")){
         	count_para = "SupportingCount";
         	table_para = "supporting_movie_list";
+        	actor_para = "SUActorId";
         }
 		
 		// search in db
@@ -256,7 +258,7 @@ public class Search {
         		
         		while(rs.next()) {
                 	count += rs.getInt("Count");
-                	String sql2 = "SELECT ActorProductId FROM " + table_para + " WHERE ActorId = \'" + rs.getString("ActorId") + "\'";
+                	String sql2 = "SELECT STActorProductId FROM " + table_para + " WHERE " + actor_para + " = \'" + rs.getString("ActorId") + "\'";
                 	ResultSet rs2 = stmt.executeQuery(sql2);
                 	while(rs2.next()){
                 		MovieId.add(rs2.getString("ActorProductId"));
