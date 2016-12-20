@@ -20,17 +20,11 @@
 
 ### TODO:
 
-##### 前端
-
-1. **所有的css/js无法正常获取** solution: 先删除view package, 重新运行 -> 撤销删除
-
 ##### 后端
 
 1. 执行stmt.executeQuery抛出异常时无法获取endtime，计时成负值（防护：为负时置0；待解决抛出异常问题，数据仓库没有建表）
 
 2. 没有数据，不能看有没有成功检索到结果
-
-3. 需要根据实际检索时间决定最终表示时间的单位（目前：**ns**）
 
 ### Solution
 
@@ -42,15 +36,22 @@
 
     3. 为方便直接读取每一部电影的数据, 同时将所有属性存储于movie表中, 并将属性统一存储为字符串而非子表.
 
+- 由于数据量过大, 对数据进行拆分:
+
+    1. review表进行了横向拆表;
+
+    2. 并将Text内容存在非关系型的文件系统中, 在数据库中存储其路径的url.
+
 - 根据未来可能添加数据的需求, 维护雪花模型:
 
     1. 即以movie表为fact表, movie表前半部分为属性值, 后半部分为维度表id(primary不使用拼接dimension id);
 
-    2. 通过建立movie\_review\_bridge表构建review同movie的关联, 保留review中的ProductId.
+    2. 通过建立movie\_review\_bridge表构建review同movie的关联, 保留review中的ProductId;
+
+    3. 预留检索review和user的接口.
 
 ### Optimization
 
-- Category -> ProductId子表
 - Name -> Hash
 
 ### Collaboration & Percentage
