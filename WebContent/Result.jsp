@@ -55,6 +55,7 @@
 </style>
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" media="all" />
+<link rel="stylesheet" href="css/style.css">
 
 <title>Result Dashboard</title>
 </head>
@@ -81,6 +82,7 @@
 		}
 	%>
 	<div align="center">
+		<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage.jsp'">Go back!</button>
 		<br> <font size=10px>Searching Condition: <%=SearchCondition%></font>
 		<br> <br> <font size=10px>Output: <%=Count%></font> <br>
 		<%-- TEST: show the time --%>

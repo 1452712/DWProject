@@ -57,13 +57,12 @@
 	fill: #999;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
-<link rel="stylesheet" type="text/css" href="css/demo.css" media="all" />
 
 
 <title>Result Dashboard</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" media="all" />
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<%
@@ -94,6 +93,7 @@
 		<header>
 		<div id="condition">
 			<h7>Searching Condition: <%=SearchCondition%></h7>
+			<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage.jsp'">Go back!</button>
 			<%-- TEST: show the time --%>
 					DBTime: <%=DBTime %><br/>
 					DWTime: <%=DWTime %><br/>
@@ -110,54 +110,50 @@
 		<header>
 		<div id="fdw-pricing-table">
 			<div class="plan">
-				<div class="header" id="p_id"><%= MovieList.get(i).ProductId %></div>
-				<div
-					style="width: 200px; font-size: 25px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">B001E6JCBC</div>
-			</div>
-			<div class="plan">
-				<div class="header" id="format">Format</div>
-				<div class="format"><%= MovieList.get(i).Format %></div>
-			</div>
-			<div class="plan">
-				<div class="header" id="edition">Edition</div>
-				<div class="large"><%= MovieList.get(i).Edition %></div>
-
-			</div>
-			<div class="plan">
-				<div class="header" id="discs">Discs</div>
-				<div class="format">DVD/Blue-ray</div>
-
-			</div>
-			<div class="plan">
-				<div class="header" id="price">Price</div>
-				<div class="format"><%= MovieList.get(i).Price %></div>
-			</div>
-		</div>
-
-
-
-		<div id="fdw-pricing-table">
-			<div class="plan">
-				<div class="header" id="time">Time</div>
-				<div class="format"><%= MovieList.get(i).Time %></div>
-			</div>
-			<div class="plan">
-				<div class="header" id="rating">Rated</div>
-				<div class="format"><%= MovieList.get(i).Time %></div>
-			</div>
-			<div class="plan">
-				<div class="header">Director</div>
-				<div class="large"><%= MovieList.get(i).Director %></div>
-
-			</div>
-			<div class="plan">
-				<div class="header" id="actor">Actor</div>
-				<div class="format"><%= MovieList.get(i).Actors %></div>
-
-			</div>
-			<div class="plan">
-				<div class="header" id="category">Category</div>
-				<div class="format"><%= MovieList.get(i).Category %></div>
+				<div class="header" id="p_id"><%= MovieList.get(i).Name %></div>
+				<table>
+					<tr>
+					  <td class="headerformat">Product_ID</td>
+			          <td class="format" id="p_id" name="p_id"><%= MovieList.get(i).ProductId %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Format</td>
+			          <td class="format" id="format" name="format"><%= MovieList.get(i).Format %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Edition</td>
+			          <td class="format" id="edition" name="edition"><%= MovieList.get(i).Edition %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Discs</td>
+			          <td class="format" id="discs" name="discs">DVD/Blue-ray</td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Price</td>
+			          <td class="format" id="price" name="price"><%= MovieList.get(i).Price %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Time</td>
+			          <td class="format" id="time" name="time"><%= MovieList.get(i).Time %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Rated</td>
+			          <td class="format" id="rated" name="rated"><%= MovieList.get(i).Time %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Director</td>
+			          <td class="format" id="director" name="director"><%= MovieList.get(i).Director %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Actor</td>
+			          <td class="format" id="actors" name="actors"><%= MovieList.get(i).Actors %></td>
+			        </tr>
+			        <tr>
+			          <td class="headerformat">Category</td>
+			          <td class="format" id="category" name="category"><%= MovieList.get(i).Category %></td>
+			        </tr>
+				</table>
+				
 
 			</div>
 		</div>
