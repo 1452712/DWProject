@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="row animate-box">
 				<div class="col-md-12">
 					<ul class="nav text-center">
-						<li class="active"><a href="/DataWarehouse/Homepage"><span>Homepage</span></a></li>
+						<li class="active"><a href="/DataWarehouse/Homepage.jsp"><span>Homepage</span></a></li>
 						<li><a href="#intro">Searchpage</a></li>
 						<li><a href="#members">Members</a></li>
 					</ul>
