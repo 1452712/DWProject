@@ -82,12 +82,10 @@
 		}
 	%>
 	<div align="center">
-		<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage'">Go back!</button>
+		<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage.jsp'">Go back!</button>
 		<br> <font size=10px>Searching Condition: <%=SearchCondition%></font>
 		<br> <br> <font size=10px>Output: <%=Count%></font> <br>
-		<%-- TEST: show the time --%>
-		DBTime: <%=DBTime %><br/>
-		DWTime: <%=DWTime %><br/>
+
 		<br>
 	</div>
 
@@ -109,8 +107,8 @@
 		d3
 				.json("",
 						function(error, data) {
-							var data1 = <%=DWTime%>;
-							var data2 = <%=DBTime%>;
+							var data1 = <%=DBTime%>;
+							var data2 = <%=DWTime%>;
 							var large = data1;
 							if (data1 > data2) {
 								large = data1;

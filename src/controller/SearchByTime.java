@@ -50,8 +50,8 @@ public class SearchByTime extends HttpServlet {
         
         HttpSession session = request.getSession(true);
         session.setAttribute("Count", result.Count);
-        session.setAttribute("DBTime", (result.DBTime > 0)?result.DBTime:0);
-        session.setAttribute("DWTime", (result.DWTime > 0)?result.DWTime:0);
+        session.setAttribute("DBTime", (result.DBTime > 0)?result.DBTime/1000:0);
+        session.setAttribute("DWTime", (result.DWTime > 0)?result.DWTime/1000:0);
         
     	String[] month_map = new String[12];        
         month_map[0] = "Jan."; month_map[1] = "Feb."; month_map[2] = "Mar."; month_map[3] = "Apr.";
@@ -71,7 +71,7 @@ public class SearchByTime extends HttpServlet {
         		+ (season != 0? ", Season: " + season_map[season - 1] : "");
         session.setAttribute("SearchCondition", search_condition);
 
-        response.sendRedirect("./ResultSimple");
+        response.sendRedirect("./Result.jsp");
         
         
 	}

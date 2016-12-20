@@ -46,7 +46,7 @@ public class SearchComprehensive extends HttpServlet {
         String value = (String) request.getParameter(value_name + Integer.toString(index));
         while(attribute != null && value != null) {
         	switch(attribute) {
-        	case "Time":
+        	case "1":
         		int year = Integer.parseInt((String) request.getParameter(value_name + Integer.toString(index) + "_0"));
                 int month = Integer.parseInt((String) request.getParameter(value_name + Integer.toString(index) + "_1"));
                 int weekday = Integer.parseInt((String) request.getParameter(value_name + Integer.toString(index) + "_2"));
@@ -56,19 +56,19 @@ public class SearchComprehensive extends HttpServlet {
                 dbtime += result1.DBTime;
                 dwtime += result1.DWTime;
                 break;
-        	case "Name":
+        	case "2":
         		Result result2  = new Result(Search.searchByName(value));
                 count += result2.Count;
                 dbtime += result2.DBTime;
                 dwtime += result2.DWTime;
                 break;
-        	case "Director":
+        	case "3":
         		Result result3  = new Result(Search.searchByDirector(value));
                 count += result3.Count;
                 dbtime += result3.DBTime;
                 dwtime += result3.DWTime;
                 break;
-        	case "Actor":
+        	case "4":
         		String type = (String) request.getParameter(value_name + Integer.toString(index) + "_0");
         		String name = (String) request.getParameter(value_name + Integer.toString(index) + "_1");
         		Result result4  = new Result(Search.searchByActor(type, name));
@@ -76,7 +76,7 @@ public class SearchComprehensive extends HttpServlet {
                 dbtime += result4.DBTime;
                 dwtime += result4.DWTime;
                 break;
-        	case "Category":
+        	case "5":
         		Result result5  = new Result(Search.searchByCategory(value));
                 count += result5.Count;
                 dbtime += result5.DBTime;
@@ -97,6 +97,7 @@ public class SearchComprehensive extends HttpServlet {
 		attribute = (String) request.getParameter(attribute_name + Integer.toString(index));
         value = (String) request.getParameter(value_name + Integer.toString(index));
         while(attribute != null && value != null) {
+        	if(attribute == "0") continue;
         	Result result  = new Result(Search.searchByKeyword(attribute, value));
             count += result.Count;
             dbtime += result.DBTime;
@@ -109,12 +110,12 @@ public class SearchComprehensive extends HttpServlet {
 		
         HttpSession session = request.getSession(true);
         session.setAttribute("Count", count);
-        session.setAttribute("DBTime", (dbtime > 0)?dbtime:0);
-        session.setAttribute("DWTime", (dwtime > 0)?dwtime:0);
+        session.setAttribute("DBTime", (dbtime > 0)?dbtime/1000:0);
+        session.setAttribute("DWTime", (dwtime > 0)?dwtime/1000:0);
 
         session.setAttribute("SearchCondition", search_condition);
 
-        response.sendRedirect("./ResultSimple");
+        response.sendRedirect("./Result.jsp");
 	}
 
 	/**

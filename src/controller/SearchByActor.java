@@ -42,12 +42,13 @@ public class SearchByActor extends HttpServlet {
         
         HttpSession session = request.getSession(true);
         session.setAttribute("Count", result.Count);
-        session.setAttribute("DBTime", (result.DBTime > 0)?result.DBTime:0);
-        session.setAttribute("DWTime", (result.DWTime > 0)?result.DWTime:0);
+        session.setAttribute("DBTime", (result.DBTime > 0)?result.DBTime/1000:0);
+        session.setAttribute("DWTime", (result.DWTime > 0)?result.DWTime/1000:0);
         session.setAttribute("MovieList",movie_list);
         session.setAttribute("SearchCondition", "Actor" + " (" + type + ")" + ": " + name);
         
-        response.sendRedirect("./ResultDetail");
+        response.sendRedirect("./ResultWithDetail.jsp");
+        //getRequestDispatcher("ResultWithDetail.jsp").forward(request, response);
 	}
 
 	/**

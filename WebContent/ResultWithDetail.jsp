@@ -91,12 +91,9 @@
 	%>
 	<div class="container">
 		<header>
+		<button type="button" class="btn btn-primary" onClick="window.location.href='Homepage.jsp'">Go back!</button>
 		<div id="condition">
-			<h7>Searching Condition: <%=SearchCondition%></h7>
-			<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage'">Go back!</button>
-			<%-- TEST: show the time --%>
-					DBTime: <%=DBTime %><br/>
-					DWTime: <%=DWTime %><br/>
+			<h7>Searching Condition: <%=SearchCondition%></h7><br/>
 		</div>
 		</br>
 		<% for(int i = 0; i < MovieList.size(); i++) {%>
@@ -185,8 +182,8 @@
 				.json(
 						"",
 						function(error, data) {
-							var data1 = <%=DWTime%>;
-							var data2 = <%=DBTime%>;
+							var data1 = <%=DBTime%>;
+							var data2 = <%=DWTime%>;
 							var large = data1;
 							if (data1 > data2) {
 								large = data1;

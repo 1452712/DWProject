@@ -679,10 +679,10 @@ var j = 1;
     div.appendChild(mySelect); 
 	var obj=document.getElementById(mySelect.id); 
 	obj.options.add(new Option("SELECT ELEMENT","0")); 
-	obj.options.add(new Option("Format","1"));
-	obj.options.add(new Option("Edition","2"));
-	obj.options.add(new Option("Price","3"));
-	obj.options.add(new Option("Rated","4"));
+	obj.options.add(new Option("Format","Format"));
+	obj.options.add(new Option("Edition","Edition"));
+	obj.options.add(new Option("Price","Price"));
+	obj.options.add(new Option("Rated","Rated"));
 
 	var br = document.createElement("br");
 	div.appendChild(br); 

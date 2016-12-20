@@ -460,9 +460,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
 				<div class="intro animate-box">
 					<h1>GROUP MEMBERS:</h1>
-					<h2>
-						Wang Guansong</br> Wang Jiahui</br> Zhang Yinjia</br> Xiang AnYing</br>
-					</h2>
+					<h3>
+						Wang Guansong</br>Wang Jiahui</br>Zhang Yinjia</br>Xiang AnYing</br>
+					</h3>
 				</div>
 			</div>
 		</div>
