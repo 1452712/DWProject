@@ -93,7 +93,7 @@
 		<header>
 		<div id="condition">
 			<h7>Searching Condition: <%=SearchCondition%></h7>
-			<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage.jsp'">Go back!</button>
+			<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage'">Go back!</button>
 			<%-- TEST: show the time --%>
 					DBTime: <%=DBTime %><br/>
 					DWTime: <%=DWTime %><br/>

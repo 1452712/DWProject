@@ -82,7 +82,7 @@
 		}
 	%>
 	<div align="center">
-		<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage.jsp'">Go back!</button>
+		<br><button type="button" class="btn btn-primary" onClick="window.location.href='Homepage'">Go back!</button>
 		<br> <font size=10px>Searching Condition: <%=SearchCondition%></font>
 		<br> <br> <font size=10px>Output: <%=Count%></font> <br>
 		<%-- TEST: show the time --%>
