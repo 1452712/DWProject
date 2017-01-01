@@ -12,7 +12,7 @@ import model.CategoryList;
 public class Category {
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver"; 
-	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
+	private static String dbConn = "jdbc:mysql://127.0.0.1:3306/sys?user=root&password=";
 	
 	public static ArrayList<CategoryList> getCategoryList() {
 		

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Movie {
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
-	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
+	private static String dbConn = "jdbc:mysql://127.0.0.1:3306/sys?user=root&password=";
 	
 	public class SingleMovie {
 		public String ProductId;
@@ -38,7 +38,7 @@ public class Movie {
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
                 String sql = "SELECT ProductId, Name, Format, Edition, Price,"
-                		+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = " + Id;
+                		+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = \'" + Id+ "\'";
 
                 ResultSet rs = stmt.executeQuery(sql);
                 while(rs.next()) {
@@ -84,7 +84,7 @@ public class Movie {
             			
             			SingleMovie tmp = movie.new SingleMovie();
             			String sql = "SELECT ProductId, Name, Format, Edition, Price,"
-            					+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = " + Id;
+            					+ "Time, Rated, Director, Actors, Category FROM movie WHERE ProductId = \'" + Id+ "\'";
 
             			ResultSet rs = stmt.executeQuery(sql);
             			while(rs.next()) {

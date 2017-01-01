@@ -12,7 +12,7 @@ import model.Result;
 public class Search {
 	
 	private static String dbDriverName = "com.mysql.jdbc.Driver";
-	private static String dbConn = "jdbc:mysql://10.60.42.203:8888/db_1452693?user=S_1452693&password=SEciWr5S";
+	private static String dbConn = "jdbc:mysql://127.0.0.1:3306/sys?user=root&password=";
 	private static String dwDriverName = "com.cloudera.hive.jdbc4.HS2Driver";
 	private static String dwConn = "jdbc:hive2://192.168.44.134:10000/default";
 	
