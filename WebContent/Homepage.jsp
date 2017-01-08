@@ -364,7 +364,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										%>
 										<option value="<%= category_list.get(i).CategoryId %>"><%= category_list.get(i).CategoryName %></option>
 										<% } %>
-										<%--
+										
 										<option value="1">Action & Adventure</option>
 										<option value="2">Anime</option>
 										<option value="3">Bollywood</option>
@@ -394,7 +394,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<option value="27">TV News Programming</option>
 										<option value="28">TV Talk Shows</option>
 										<option value="29">Westerns</option>
-										 --%>
+										 
 									</select>
 								</div>
 								</br>

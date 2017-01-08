@@ -52,7 +52,7 @@ public class Category {
 
             if(conn!=null) {
                 Statement stmt = conn.createStatement();
-                String sql = "SELECT Category FROM category_dimension WHERE CategoryId = " + id;
+                String sql = "SELECT Category FROM category_dimension WHERE CategoryId = " + "\'"+id+ "\'";
 
                 ResultSet rs = stmt.executeQuery(sql);
                 while(rs.next()) {

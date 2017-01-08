@@ -21,7 +21,7 @@ public class User {
 
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
-	                String sql = "SELECT ProfileName FROM user WHERE UserId = " + Id;
+	                String sql = "SELECT ProfileName FROM user WHERE UserId = " + "\'"+ Id+ "\'";
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                while(rs.next()) {

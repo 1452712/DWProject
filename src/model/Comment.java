@@ -38,7 +38,7 @@ public String name;
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
 	                String sql = "SELECT ReviewId, UserId, ProductId, Helpfulness, Score, Time,"
-	                		+ "Summary, Text FROM review WHERE ReviewId = " + Id;
+	                		+ "Summary, Text FROM review WHERE ReviewId = " + "\'"+ Id+ "\'";
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                while(rs.next()) {
@@ -78,7 +78,7 @@ public String name;
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
 	                String sql = "SELECT ReviewId, UserId, ProductId, Helpfulness, Score, Time,"
-	                		+ "Summary, Text FROM review WHERE UserId = " + Id;
+	                		+ "Summary, Text FROM review WHERE UserId = " + "\'"+ Id+ "\'";
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                Comment comment = new Comment();
@@ -122,7 +122,7 @@ public String name;
 	            if(conn!=null) {
 	                Statement stmt = conn.createStatement();
 	                String sql = "SELECT ReviewId, UserId, ProductId, Helpfulness, Score, Time,"
-	                		+ "Summary, Text FROM review WHERE ProductId = " + Id;
+	                		+ "Summary, Text FROM review WHERE ProductId = " + "\'"+ Id+ "\'";
 
 	                ResultSet rs = stmt.executeQuery(sql);
 	                Comment comment = new Comment();
