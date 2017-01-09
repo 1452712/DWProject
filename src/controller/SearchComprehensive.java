@@ -44,7 +44,7 @@ public class SearchComprehensive extends HttpServlet {
 		String value_name = "value1_";
 		String attribute = (String) request.getParameter(attribute_name + Integer.toString(index));
         String value = (String) request.getParameter(value_name + Integer.toString(index));
-        while(attribute != null && value != null) {
+        while(attribute != null) {
         	switch(attribute) {
         	case "1":
         		int year = Integer.parseInt((String) request.getParameter(value_name + Integer.toString(index) + "_0"));
